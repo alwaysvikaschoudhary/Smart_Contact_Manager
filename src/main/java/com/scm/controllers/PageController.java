@@ -119,7 +119,7 @@ public class PageController {
         user.setAbout(userForm.getAbout());
         user.setPhoneNumber(userForm.getPhoneNumber());
         user.setEnabled(true);
-        user.setProfilePic("https://www.learncodewithdurgesh.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdurgesh_sir.35c6cb78.webp&w=1920&q=75");
+        user.setProfilePic("https://lh3.googleusercontent.com/a/ACg8ocLqoSn0wqGTJ8MzbjSmc7MCsLWb5X6XZdNQrtq-GaluSGKMzbQ=s96-c");
 
 
         User savedUser = userService.saveUser(user);

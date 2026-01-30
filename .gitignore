@@ -43,3 +43,6 @@ yarn-error.log*
 
 ### Env ###
 .env
+
+src/main/resources/application.properties
+.env
