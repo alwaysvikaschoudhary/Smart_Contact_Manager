@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-th-replace="${title}">SCM</title>
+    <link rel="icon" type="image/png" th:href="@{/images/3d-contact.png}">
+
 
     <link rel="stylesheet" data-th-href="@{'/css/output.css'}" />
     <link rel="stylesheet" data-th-href="@{'/css/style.css'}" />
@@ -13,18 +15,27 @@
 </head>
 <body class="min-h-screen flex flex-col bg-white text-black dark:bg-gray-900 dark:text-white">
 
-    <!-- comman header -->
-     <div data-th-replace="navbar :: navbar"></div>
+<!-- commona header -->
+
+<!--  user is logged in : navbar -->
+<div th:if="${loggedInUser}">
+    <div data-th-replace="~{user/user_navbar::user-navbar}"></div>
+</div>
+
+<!-- user is not logged : navbar -->
+<div th:unless="${loggedInUser}">
+    <div data-th-replace="~{navbar :: navbar}"></div>
+</div>
 
     <!-- main content -->
-    <div class="flex-grow p-4">
+    <div class="flex-grow p-4 ">
         <section data-th-replace="${content}"></section>
     </div>
 
     <!-- flow bite content -->
 
     <!-- comman footer -->
-    <footer class="p-4 bg-gray-200 text-center dark:text-black">
+    <footer class="p-4 z-50 bg-gray-200 text-center dark:text-black">
         <p>&copy; 2026 SCM. All rights reserved to Vikas.</p>
     </footer>
 
