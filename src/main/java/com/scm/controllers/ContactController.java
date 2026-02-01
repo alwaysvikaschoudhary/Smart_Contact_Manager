@@ -2,10 +2,12 @@ package com.scm.controllers;
 
 import java.util.*;
 
+import com.scm.helpers.AppConstants;
 import com.scm.services.ContactService;
 import com.scm.services.ImageService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ import com.scm.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/user/contacts")
@@ -51,8 +54,7 @@ public class ContactController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String saveContact(@Valid @ModelAttribute ContactForm contactForm, BindingResult result,
-                              Authentication authentication, HttpSession session) {
+    public String saveContact(@Valid @ModelAttribute ContactForm contactForm, BindingResult result, Authentication authentication, HttpSession session) {
 
         // process the form data
 
@@ -91,12 +93,12 @@ public class ContactController {
         // image process
         // uplod karne ka code
 
-//        if (contactForm.getContactImage() != null && !contactForm.getContactImage().isEmpty()) {
-//            String filename = UUID.randomUUID().toString();
-//            String fileURL = imageService.uploadImage(contactForm.getContactImage(), filename);
-//            contact.setPicture(fileURL);
-//            contact.setCloudinaryImagePublicId(filename);
-//        }
+        if (contactForm.getContactImage() != null && !contactForm.getContactImage().isEmpty()) {
+            String filename = UUID.randomUUID().toString();
+            String fileURL = imageService.uploadImage(contactForm.getContactImage(), filename);
+            contact.setPicture(fileURL);
+            contact.setCloudinaryImagePublicId(filename);
+        }
 
         contactService.save(contact);
         System.out.println(contactForm);
@@ -112,7 +114,31 @@ public class ContactController {
                         .build());
 
         return "redirect:/user/contacts/add";
+    }
 
+    // View Contact
+    @RequestMapping
+    public String viewContacts(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = AppConstants.PAGE_SIZE + "") int size,
+            @RequestParam(value = "sortBy", defaultValue = "name") String sortBy,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction,
+            Model model,
+            Authentication authentication) {
+
+        // load all the user contacts
+        String username = Helper.getEmailOfLoggedInUser(authentication);
+
+        User user = userService.getUserByEmail(username);
+
+        Page<Contact> pageContact = contactService.getByUser(user, page, size, sortBy, direction);
+
+        model.addAttribute("pageContact", pageContact);
+        model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
+
+//        model.addAttribute("contactSearchForm", new ContactSearchForm());
+
+        return "user/contacts";
     }
 
 }
