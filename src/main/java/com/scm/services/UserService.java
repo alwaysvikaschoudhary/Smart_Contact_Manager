@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.scm.entities.User;
 
 public interface UserService {
-    
+
     User saveUser(User user);
 
     Optional<User> getUserById(String id);
@@ -22,7 +22,7 @@ public interface UserService {
     List<User> getAllUsers();
 
     User getUserByEmail(String email);
-    
+
     // add more methods here related user service[logic]
-    
+
 }

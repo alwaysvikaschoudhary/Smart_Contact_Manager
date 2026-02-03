@@ -1,4 +1,4 @@
-package com.scm.repositories;
+package com.scm.repsitories;
 
 import java.util.*;
 

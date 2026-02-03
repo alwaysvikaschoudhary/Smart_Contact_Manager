@@ -10,20 +10,24 @@ import org.springframework.stereotype.Service;
 import com.scm.entities.Contact;
 import com.scm.entities.User;
 import com.scm.helpers.ResourceNotFoundException;
-import com.scm.repositories.ContactRepo;
+import com.scm.repsitories.ContactRepo;
 import com.scm.services.ContactService;
 
 @Service
-public class ContactServiceImpl implements ContactService {
+public class ContactServiceImpl implements ContactService
+
+{
 
     @Autowired
     private ContactRepo contactRepo;
 
     @Override
     public Contact save(Contact contact) {
+
         String contactId = UUID.randomUUID().toString();
         contact.setId(contactId);
         return contactRepo.save(contact);
+
     }
 
     @Override
@@ -91,7 +95,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Page<Contact> searchByEmail(String emailKeyword, int size, int page, String sortBy, String order,
-                                       User user) {
+            User user) {
         Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         var pageable = PageRequest.of(page, size, sort);
         return contactRepo.findByUserAndEmailContaining(user, emailKeyword, pageable);
@@ -99,7 +103,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Page<Contact> searchByPhoneNumber(String phoneNumberKeyword, int size, int page, String sortBy,
-                                             String order, User user) {
+            String order, User user) {
 
         Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         var pageable = PageRequest.of(page, size, sort);

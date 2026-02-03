@@ -38,7 +38,6 @@ public class Contact {
     // private List<String> socialLinks=new ArrayList<>();
     private String cloudinaryImagePublicId;
 
-
     @ManyToOne
     @JsonIgnore
     private User user;

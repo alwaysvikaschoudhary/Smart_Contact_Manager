@@ -1,4 +1,3 @@
-
 console.log("Script loaded");
 
 // change theme work

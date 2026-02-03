@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.scm.helpers.AppConstants;
-import com.scm.repositories.UserRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.scm.entities.User;
+import com.scm.helpers.AppConstants;
 import com.scm.helpers.ResourceNotFoundException;
+import com.scm.repsitories.UserRepo;
 import com.scm.services.UserService;
 
 @Service
@@ -39,9 +39,11 @@ public class UserServiceImpl implements UserService {
         // set the user role
 
         user.setRoleList(List.of(AppConstants.ROLE_USER));
+
         logger.info(user.getProvider().toString());
 
         return userRepo.save(user);
+
     }
 
     @Override
@@ -54,7 +56,6 @@ public class UserServiceImpl implements UserService {
 
         User user2 = userRepo.findById(user.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
         // update karenge user2 from user
         user2.setName(user.getName());
         user2.setEmail(user.getEmail());
@@ -67,7 +68,6 @@ public class UserServiceImpl implements UserService {
         user2.setPhoneVerified(user.isPhoneVerified());
         user2.setProvider(user.getProvider());
         user2.setProviderUserId(user.getProviderUserId());
-
         // save the user in database
         User save = userRepo.save(user2);
         return Optional.ofNullable(save);
@@ -102,6 +102,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmail(String email) {
         return userRepo.findByEmail(email).orElse(null);
+
     }
 
 }

@@ -16,12 +16,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.*;
+import java.util.stream.Collectors;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity(name = "user")
 @Table(name = "users")
@@ -39,6 +39,7 @@ public class User implements UserDetails {
     private String name;
     @Column(unique = true, nullable = false)
     private String email;
+    @Getter(AccessLevel.NONE)
     private String password;
     @Column(length = 1000)
     private String about;
@@ -46,9 +47,10 @@ public class User implements UserDetails {
     private String profilePic;
     private String phoneNumber;
 
+    @Getter(value = AccessLevel.NONE)
     // information
-    @Getter(AccessLevel.NONE)
     private boolean enabled = true;
+
     private boolean emailVerified = false;
     private boolean phoneVerified = false;
 
@@ -105,4 +107,5 @@ public class User implements UserDetails {
     public String getPassword() {
         return this.password;
     }
+
 }

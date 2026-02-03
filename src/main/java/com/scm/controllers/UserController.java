@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.scm.services.UserService;
 
 @Controller
@@ -29,7 +30,8 @@ public class UserController {
     // user profile page
 
     @RequestMapping(value = "/profile")
-    public String userProfile(Model model,Authentication authentication) {
+    public String userProfile(Model model, Authentication authentication) {
+
         return "user/profile";
     }
 
