@@ -1,24 +1,102 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
->
-  <head>
-    <title>About Page</title>
-  </head>
-  <body>
-    <div id="content">
-      <h1>Welcome to about page</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur,
-        ratione!
-      </p>
-    </div>
-    <script>
-      console.log("about page");
-    </script>
-    <script>
-      console.log("second about page script");
-    </script>
-  </body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: parent(~{::#content},~{::title},~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us</title>
+</head>
+<body>
+<div id="content">
+
+    <section class="bg-white dark:bg-gray-900 py-16 lg:py-24 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+
+                <div class="w-full lg:w-1/2">
+                    <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white leading-tight">
+                        About <span class="text-blue-600 dark:text-blue-500">Smart Contact Manager</span>
+                    </h1>
+                    <p class="mt-6 text-xl text-gray-500 dark:text-gray-300 leading-relaxed">
+                        We are revolutionizing the way professionals manage their relationships. By combining intuitive design with powerful AI, we help you stay connected to the people who matter most.
+                    </p>
+                </div>
+
+                <div class="w-full lg:w-1/2">
+                    <div class="rounded-2xl overflow-hidden shadow-xl border dark:border-gray-700">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                             alt="Team working in a modern office"
+                             class="w-full h-full object-cover">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-50 dark:bg-gray-900 py-16 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <div class="bg-white dark:bg-gray-800 p-10 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-start transition-colors duration-300">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Mission</h3>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                        To simplify digital relationship management by providing a centralized, intelligent, and secure platform that empowers individuals and businesses to nurture their networks effectively.
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-10 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-start transition-colors duration-300">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Vision</h3>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                        A world where technology bridges the gap between contacts and meaningful connections, ensuring no opportunity is ever lost due to disorganization.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white dark:bg-gray-900 py-20 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Meet the Team</h2>
+            <p class="text-gray-500 dark:text-gray-400 mb-16">The passionate people behind Smart Contact Manager.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+
+                <div class="flex flex-col items-center">
+                    <div class="w-32 h-32 rounded-full bg-cyan-600 flex items-center justify-center mb-6 shadow-lg">
+                        <span class="text-4xl font-light text-white">VC</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Vikas Choudhary</h3>
+                    <p class="text-blue-600 dark:text-blue-400 font-medium">Founder & CEO</p>
+                </div>
+
+                <div class="flex flex-col items-center">
+                    <div class="w-32 h-32 rounded-full bg-indigo-500 flex items-center justify-center mb-6 shadow-lg">
+                        <span class="text-4xl font-light text-white">HY</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Hannu Yadav</h3>
+                    <p class="text-blue-600 dark:text-blue-400 font-medium">Head of Product</p>
+                </div>
+
+                <div class="flex flex-col items-center">
+                    <div class="w-32 h-32 rounded-full bg-emerald-500 flex items-center justify-center mb-6 shadow-lg">
+                        <span class="text-4xl font-light text-white">HS</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Himanshu Singla</h3>
+                    <p class="text-blue-600 dark:text-blue-400 font-medium">Lead Engineer</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+</div>
+</body>
 </html>
