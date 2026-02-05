@@ -1,49 +1,49 @@
 <!DOCTYPE html>
-<html
-  class="light"
-  lang="en"
-  th:fragment="parent(content,title,script)"
-  xmlns:th="http://www.thymeleaf.org"
->
-  <head>
+<html class="light" lang="en" th:fragment="parent(content0, content1, title, script)"
+    xmlns:th="http://www.thymeleaf.org">
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title data-th-replace="${title}">SCM</title>
-      <!-- ✅ FAVICON -->
-      <link rel="icon" type="image/png" href="/images/3d-contact.png">
+    <!-- ✅ FAVICON -->
+    <link rel="icon" type="image/png" href="/images/3d-contact.png">
 
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" data-th-href="@{'/css/output.css'}" />
     <link rel="stylesheet" data-th-href="@{'/css/style.css'}" />
 
     <!-- font awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-  </head>
-  <body class="dark:bg-gray-900 bg-gray-100 dark:text-white">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="dark:bg-gray-900 bg-gray-100 dark:text-white">
     <!-- commona header -->
 
     <!--  user is logged in : navbar -->
     <div th:if="${loggedInUser}">
-      <div data-th-replace="~{user/user_navbar::user-navbar}"></div>
+        <div data-th-replace="~{user/user_navbar::user-navbar}"></div>
+
+
+        <div class="p-4">
+            <section data-th-replace="${content1}"></section>
+        </div>
+
     </div>
 
     <!-- user is not logged : navbar -->
     <div th:unless="${loggedInUser}">
-      <div data-th-replace="~{navbar :: navbar}"></div>
+        <div data-th-replace="~{navbar :: navbar}"></div>
+
+
+
     </div>
 
     <!-- main content -->
     <div class="p-4">
-      <section data-th-replace="${content}"></section>
+        <section data-th-replace="${content0}"></section>
     </div>
     <!-- flow bite content -->
 
@@ -56,7 +56,8 @@
                 <div class="lg:col-span-2">
                     <h3 class="text-xl font-bold mb-4">Smart Contact Manager</h3>
                     <p class="text-gray-400 mb-6 max-w-sm">
-                        Streamline your professional network with AI-driven insights and secure cloud storage. Managing connections has never been smarter.
+                        Streamline your professional network with AI-driven insights and secure cloud storage. Managing
+                        connections has never been smarter.
                     </p>
                     <div class="flex space-x-5">
                         <a href="#" class="text-gray-400 hover:text-white transition-colors">
@@ -75,9 +76,12 @@
                     <h3 class="text-sm font-semibold text-gray-200 uppercase tracking-wider mb-4">Quick Links</h3>
                     <ul class="space-y-3">
                         <li><a th:href="@{/home}" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
-                        <li><a th:href="@{/about}" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-                        <li><a th:href="@{/services}" class="text-gray-400 hover:text-white transition-colors">Services</a></li>
-                        <li><a th:href="@{/contact}" class="text-gray-400 hover:text-white transition-colors">Contact Support</a></li>
+                        <li><a th:href="@{/about}" class="text-gray-400 hover:text-white transition-colors">About Us</a>
+                        </li>
+                        <li><a th:href="@{/services}"
+                                class="text-gray-400 hover:text-white transition-colors">Services</a></li>
+                        <li><a th:href="@{/contact}" class="text-gray-400 hover:text-white transition-colors">Contact
+                                Support</a></li>
                     </ul>
                 </div>
 
@@ -85,7 +89,8 @@
                     <h3 class="text-sm font-semibold text-gray-200 uppercase tracking-wider mb-4">Legal</h3>
                     <ul class="space-y-3">
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+                        </li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
                     </ul>
                 </div>
@@ -107,5 +112,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script data-th-src="@{'/js/script.js'}"></script>
     <th:block data-th-replace="${script}"></th:block>
-  </body>
+</body>
+
 </html>
