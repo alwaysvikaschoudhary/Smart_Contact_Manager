@@ -123,7 +123,7 @@ public class PageController {
         user.setPhoneNumber(userForm.getPhoneNumber());
         user.setEnabled(false);
         user.setProfilePic(
-                "https://www.learncodewithdurgesh.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdurgesh_sir.35c6cb78.webp&w=1920&q=75");
+                "https://icons.veryicon.com/png/o/system/crm-android-app-icon/app-icon-person.png");
 
         User savedUser = userService.saveUser(user);
 

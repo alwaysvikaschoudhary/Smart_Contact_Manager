@@ -1,5 +1,9 @@
 console.log("Contacts.js");
+
 const baseURL = "http://localhost:8081";
+//const baseURL = "http://scmv.ap-south-1.elasticbeanstalk.com";
+
+
 const viewContactModal = document.getElementById("view_contact_modal");
 
 // options with default values
@@ -75,8 +79,13 @@ async function deleteContact(id) {
     icon: "warning",
     showCancelButton: true,
     confirmButtonText: "Delete",
+    // Use these customClass properties to apply Tailwind directly
+    customClass: {
+      confirmButton: "bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-2",
+      cancelButton: "bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mx-2"
+    },
+    buttonsStyling: false // Important: this tells Swal to use your classes only
   }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
       const url = `${baseURL}/user/contacts/delete/` + id;
       window.location.replace(url);
