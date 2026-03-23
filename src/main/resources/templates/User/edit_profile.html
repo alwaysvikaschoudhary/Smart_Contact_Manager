@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{}, ~{::#content},~{::title},~{::script})}">
+
+<head>
+    <title>Edit Profile | SCM</title>
+</head>
+
+<body>
+    <div id="content">
+        <div class="pt-20">
+            <div class="grid grid-cols-12">
+                <div th:if="${loggedInUser}" class="col-span-4">
+                    <div data-th-replace="~{user/sidebar :: sidebar}"></div>
+                </div>
+
+                <div class="col-span-12 md:col-span-7 flex justify-center">
+                    <div
+                        class="card block w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                        
+                        <div data-th-replace="~{message :: messagebox}"></div>
+                        
+                        <h1 class="text-2xl font-semibold">Edit Your Profile</h1>
+                        <p class="text-gray-500">Update your information below...</p>
+
+                        <form data-th-action="@{'/user/profile/update'}" data-th-object="${userProfileForm}" method="post"
+                            class="mt-8" enctype="multipart/form-data">
+                            
+                            <!-- name -->
+                            <div class="mb-3">
+                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                <div class="relative mb-1">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                        <i class="fa-regular w-4 h-4 fa-user text-gray-500 dark:text-gray-400"></i>
+                                    </div>
+                                    <input data-th-field="*{name}" type="text" id="name"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Enter name" required />
+                                </div>
+                                <p data-th-if="${#fields.hasErrors('name')}" data-th-errors="*{name}"
+                                    class="text-red-500 px-1 py-1"></p>
+                            </div>
+
+                            <!-- phone number -->
+                            <div class="mb-3">
+                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
+                                <div class="relative mb-1">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                        <i class="fa-solid w-4 h-4 fa-phone text-gray-500 dark:text-gray-400"></i>
+                                    </div>
+                                    <input data-th-field="*{phoneNumber}" type="text" id="phone"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Enter phone number" />
+                                </div>
+                                <p data-th-if="${#fields.hasErrors('phoneNumber')}" data-th-errors="*{phoneNumber}"
+                                    class="text-red-500 px-1 py-1"></p>
+                            </div>
+
+                            <!-- about -->
+                            <div class="mb-3">
+                                <label for="about" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">About</label>
+                                <textarea data-th-field="*{about}" id="about" rows="4"
+                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Write about yourself..."></textarea>
+                                <p data-th-if="${#fields.hasErrors('about')}" data-th-errors="*{about}"
+                                    class="text-red-500 px-1 py-1"></p>
+                            </div>
+
+                            <!-- profile pic -->
+                            <div class="mb-3">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    for="image_input">Profile Picture</label>
+                                <input data-th-field="*{profileImage}"
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    id="image_input" type="file">
+                                <img class="max-h-52 mx-auto rounded-lg shadow m-3" data-th-src="*{profilePic}" id="upload_image_preview" alt="">
+                            </div>
+
+                            <div class="button-container flex justify-center space-x-3">
+                                <button type="submit"
+                                    class="px-3 py-2 rounded bg-gray-800 hover:bg-gray-900 text-white dark:bg-blue-600 dark:hover:bg-blue-700">Update Profile</button>
+                                <a data-th-href="@{'/user/profile'}"
+                                    class="px-3 py-2 rounded bg-gray-800 hover:bg-gray-900 text-white dark:bg-blue-600 dark:hover:bg-blue-700">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            // profile image preview
+            document.querySelector("#image_input").addEventListener("change", function (event) {
+                let file = event.target.files[0];
+                let reader = new FileReader();
+                reader.onload = function () {
+                    document.querySelector("#upload_image_preview").setAttribute("src", reader.result);
+                };
+                reader.readAsDataURL(file);
+            });
+        </script>
+    </div>
+</body>
+
+</html>

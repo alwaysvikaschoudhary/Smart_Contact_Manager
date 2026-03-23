@@ -67,10 +67,17 @@
                                     </div>
                                 </form>
 
-                                <button type="button" onclick="exportData()"
-                                    class="px-3 py-2 bg-green-800 text-white rounded">
-                                    Export
-                                </button>
+                                <div class="flex space-x-2">
+                                    <button type="button" onclick="exportExcel()"
+                                        class="px-3 py-2 bg-green-700 hover:bg-green-800 text-white rounded flex items-center shadow-lg transform active:scale-95 transition-all duration-150">
+                                        <i class="fa-solid fa-file-excel mr-2"></i> Excel
+                                    </button>
+
+                                    <button type="button" onclick="exportPdf()"
+                                        class="px-3 py-2 bg-red-700 hover:bg-red-800 text-white rounded flex items-center shadow-lg transform active:scale-95 transition-all duration-150">
+                                        <i class="fa-solid fa-file-pdf mr-2"></i> PDF
+                                    </button>
+                                </div>
 
                             </div>
 
@@ -111,23 +118,29 @@
                                                 <span data-th-text="*{phoneNumber}"></span>
                                             </td>
                                             <td class="px-6 py-4">
-                                                <div class="flex items-center">
+                                                <div class="flex items-center space-x-3">
                                                     <div data-th-if="*{favorite}"
                                                         class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
 
-                                                    <a data-th-href="@{*{websiteLink}}" target="_blank"><i
-                                                            class="fa-solid w-6 h-6 fa-link"></i></a>
-
-                                                    <a data-th-href="@{*{linkedInLink}}" target="_blank">
-                                                        <i class="fa-brands w-6 h-6 fa-linkedin"></i>
+                                                    <!-- direct website link -->
+                                                    <a data-th-if="*{websiteLink}" data-th-href="*{websiteLink}"
+                                                        target="_blank">
+                                                        <i class="fa-solid fa-xl fa-link"></i>
                                                     </a>
+
+                                                    <!-- direct linkedin link -->
+                                                    <a data-th-if="*{linkedInLink}" data-th-href="*{linkedInLink}"
+                                                        target="_blank">
+                                                        <i class="fa-brands fa-xl fa-linkedin"></i>
+                                                    </a>
+                                                    
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4">
                                                 <div>
                                                     <!-- <a data-th-href="@{'/user/contacts/delete/'+*{id}}">
                                                 <i class="fa-solid w-6 h-6 fa-trash"></i>
-                                              </a> -->
+                                               </a> -->
 
                                                     <!-- delete contact -->
                                                     <button th:onclick="deleteContact([[${c.id}]])">
@@ -190,16 +203,68 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 
+        <!-- Excel Export Library -->
         <script src="https://cdn.jsdelivr.net/npm/@linways/table-to-excel@1.0.4/dist/tableToExcel.min.js"></script>
+        
+        <!-- PDF Export Libraries -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
         <script data-th-src="@{'/js/contacts.js'}"></script>
         <script>
-            function exportData() {
+            function exportExcel() {
                 TableToExcel.convert(document.getElementById("contact-table"), {
                     name: "contacts.xlsx",
                     sheet: {
                         name: "Sheet 1",
                     },
                 });
+            }
+
+            function exportPdf() {
+                const { jsPDF } = window.jspdf;
+                const doc = jsPDF();
+                
+                // Add title
+                doc.setFontSize(18);
+                doc.text("All Your Contacts", 14, 20);
+                doc.setFontSize(11);
+                doc.setTextColor(100);
+                
+                // Add generated date
+                const date = new Date().toLocaleDateString();
+                doc.text(`Generated on: ${date}`, 14, 30);
+
+                // Export table
+                doc.autoTable({
+                    html: '#contact-table',
+                    startY: 35,
+                    columns: [
+                        { header: 'Name', dataKey: 'name' },
+                        { header: 'Email', dataKey: 'email' },
+                        { header: 'Phone', dataKey: 'phone' },
+                        { header: 'Address', dataKey: 'address' }
+                    ],
+                    // We need to map the table content correctly because the HTML table 
+                    // has complex structures (images, icons) in cells.
+                    body: Array.from(document.querySelectorAll('#contact-table tbody tr')).map(tr => {
+                        const nameDiv = tr.querySelector('th div.ps-3 div.text-base');
+                        const emailDiv = tr.querySelector('th div.ps-3 div.font-normal');
+                        const phoneSpan = tr.querySelector('td:nth-child(2) span');
+                        
+                        return [
+                            nameDiv ? nameDiv.innerText.trim() : '',
+                            emailDiv ? emailDiv.innerText.trim() : '',
+                            phoneSpan ? phoneSpan.innerText.trim() : '',
+                            // Address isn't in this table directly, but we show it as a column if needed 
+                            // or omit based on current table structure.
+                        ];
+                    }),
+                    theme: 'striped',
+                    headStyles: { fillStyle: [31, 41, 55] }, // Dark slate blue
+                });
+
+                doc.save("contacts.pdf");
             }
         </script>
 </body>

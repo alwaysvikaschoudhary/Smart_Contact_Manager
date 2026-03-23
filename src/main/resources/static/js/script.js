@@ -62,3 +62,23 @@ function changePageTheme(theme, oldTheme) {
 
 //change page change theme
 
+
+function logout() {
+  Swal.fire({
+    title: "Logout",
+    text: "Are you sure you want to logout?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, logout!",
+    cancelButtonText: "Cancel",
+    customClass: {
+      confirmButton: "bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-2",
+      cancelButton: "bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mx-2"
+    },
+    buttonsStyling: false
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = "/do-logout";
+    }
+  });
+}
