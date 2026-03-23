@@ -47,13 +47,29 @@ public class UserServiceImpl implements UserService {
 
         logger.info(user.getProvider().toString());
 
+        logger.info("Starting user save process for email: " + user.getEmail());
         String emailToken = UUID.randomUUID().toString();
         user.setEmailToken(emailToken);
-        User savedUser = userRepo.save(user);
-        String emailLink = Helper.getLinkForEmailVerification(emailToken);
-        emailService.sendEmail(savedUser.getEmail(), "Verify Account : Smart Contact Manager", emailLink);
+        
+        try {
+            User savedUser = userRepo.save(user);
+            logger.info("User object saved successfully in DB. ID: " + savedUser.getUserId());
 
-        return savedUser;
+            String emailLink = Helper.getLinkForEmailVerification(emailToken);
+            try {
+                emailService.sendEmail(savedUser.getEmail(), "Verify Account : Smart Contact Manager", emailLink);
+                logger.info("Verification email sent to: " + savedUser.getEmail());
+            } catch (Exception e) {
+                logger.error("NON-FATAL ERROR: Failed to send verification email. Reason: " + e.getMessage());
+            }
+
+            return savedUser;
+
+        } catch (Exception e) {
+            logger.error("FATAL DATABASE ERROR: Could not save user to DB. Reason: " + e.getMessage());
+            e.printStackTrace();
+            throw e; // Rethrow to maintain 500 status but with clear log message
+        }
 
     }
 
