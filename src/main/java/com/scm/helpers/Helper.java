@@ -43,13 +43,13 @@ public class Helper {
 
 
     public static String getLinkForEmailVerification(String emailToken) {
+        String baseURL = System.getenv("BASE_URL"); 
 
-        String baseURL = "http://localhost:8081";
-//        String baseURL = "http://scmv.ap-south-1.elasticbeanstalk.com";
-
-
-        String link = baseURL + "/auth/verify-email?token=" + emailToken;
-
-        return link;
+        if(baseURL == null) {
+            baseURL = "http://localhost:8081"; 
+        }
+        
+        return baseURL + "/auth/verify-email?token=" + emailToken;
     }
+
 }
