@@ -35,8 +35,8 @@ public class PageController {
         System.out.println("Home page handler");
         // sending data to view
         model.addAttribute("name", "Substring Technologies");
-        model.addAttribute("youtubeChannel", "Learn Code With Durgesh");
-        model.addAttribute("githubRepo", "https://github.com/learncodewithdurgesh/");
+        model.addAttribute("youtubeChannel", "Learn Code With Vikas");
+        model.addAttribute("githubRepo", "https://github.com/learncodewithvikas/");
         return "home";
     }
 
@@ -76,7 +76,7 @@ public class PageController {
 
         UserForm userForm = new UserForm();
         // default data bhi daal sakte hai
-        // userForm.setName("Durgesh");
+        // userForm.setName("Vikas");
         // userForm.setAbout("This is about : Write something about yourself");
         model.addAttribute("userForm", userForm);
 
@@ -112,7 +112,7 @@ public class PageController {
         // .about(userForm.getAbout())
         // .phoneNumber(userForm.getPhoneNumber())
         // .profilePic(
-        // "https://www.learncodewithdurgesh.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdurgesh_sir.35c6cb78.webp&w=1920&q=75")
+        // "https://www.learncodewithvikas.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fvikas_sir.35c6cb78.webp&w=1920&q=75")
         // .build();
 
         User user = new User();

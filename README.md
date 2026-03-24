@@ -4,6 +4,17 @@ Smart Contact Manager is a full-stack web application built with **Spring Boot**
 
 It demonstrates real-world backend development with Spring Security, JPA, server-side rendering, and UI enhancements with Tailwind CSS and Flowbite.
 
+## 📸 Screenshots
+
+### Homepage
+![Homepage](./screenshots/homepage.png)
+
+### User Profile
+![User Profile](./screenshots/profile.png)
+
+### Add Contact
+![Add Contact](./screenshots/add-contact.png)
+
 ---
 
 ## 📌 Features
