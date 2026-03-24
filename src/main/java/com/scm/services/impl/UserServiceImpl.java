@@ -59,8 +59,8 @@ public class UserServiceImpl implements UserService {
             try {
                 emailService.sendEmail(savedUser.getEmail(), "Verify Account : Smart Contact Manager", emailLink);
                 logger.info("Verification email sent to: " + savedUser.getEmail());
-            } catch (Exception e) {
-                logger.error("NON-FATAL ERROR: Failed to send verification email. Reason: " + e.getMessage());
+            } catch (Throwable t) {
+                logger.error("NON-FATAL ERROR: Failed to send verification email. Reason: " + t.getMessage(), t);
             }
 
             return savedUser;
